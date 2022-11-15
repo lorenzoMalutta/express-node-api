@@ -1,4 +1,5 @@
 // start config
+require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(express.json());
@@ -7,9 +8,9 @@ const mongoose = require('mongoose');
 
 // start database
 const DB_USER = process.env.DB_USER;
-const DB_PASSWORD = encodeURIComponent(DB_PASSWORD);
+const DB_PASSWORD = encodeURIComponent(process.env.DB_PASSWORD);
 
-const uri = `mongodb+srv://${DB_user}:${DB_PASSWORD}@cluster0.wba683h.mongodb.net/?retryWrites=true&w=majority`;
+const uri = `mongodb+srv://${DB_USER}:${DB_PASSWORD}@cluster0.wba683h.mongodb.net/?retryWrites=true&w=majority`;
 
 async function connect() {
   try {
