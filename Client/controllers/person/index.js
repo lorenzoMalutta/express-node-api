@@ -1,14 +1,12 @@
-const router = require('express').Router();
-const Person = require('../models/Person');
-
+const Person = require('../../models/Person');
 // index
-router.get('/', async (req, res) => {
+async function index(req, res) {
   const persons = await Person.find();
   return res.json(persons);
-});
+};
 
 // create
-router.post('/', async (req, res) => {
+async function create(req, res) {
   const  { name, age, approved } = req.body;
   const person = {
     name,
@@ -23,17 +21,17 @@ router.post('/', async (req, res) => {
   } catch (error) {
     console.log(error);
   }
-}); 
+}; 
 
 // show
-router.get('/:id', async (req, res) => {
+async function show(req, res) {
   const { id } = req.params;
   const person = await Person.findById
   return res.json(person);
-});
+};
 
 // update
-router.put('/:id', async (req, res) => {
+async function update(req, res) {
   const { id } = req.params;
   const { name, age, approved } = req.body;
   // save person
@@ -43,13 +41,19 @@ router.put('/:id', async (req, res) => {
     approved
   });
   return res.json(person);
-});
+};
 
-// delete
-router.delete('/:id', async (req, res) => {
+// destroy
+async function destroy(req, res) {
   const { id } = req.params;
   const person = await Person.findByIdAndDelete(id);
   return res.json(person);
-});
+};
 
-module.exports = router;
+module.exports = {
+  index,
+  create,
+  show,
+  update,
+  destroy
+};

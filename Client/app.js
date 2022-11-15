@@ -1,9 +1,10 @@
 // start config
-require('dotenv').config();
 const express = require('express');
 const app = express();
 app.use(express.json());
+require('dotenv').config();
 const mongoose = require('mongoose');
+const router = require('./routes/routes');
 // end config
 
 // start database
@@ -25,15 +26,12 @@ connect();
 // end database
 
 // start routes
-const personRoutes = require('./routes/person');
-const productRoutes = require('./routes/products');
+app.use(router);
+// end routes
 
-app.use('/person', personRoutes);
-
-app.use('/products', productRoutes);
 
 app.listen(3000, () => {
   console.log('Server is running on port 3000');
 });
 
-// end routes
+module.exports = app;

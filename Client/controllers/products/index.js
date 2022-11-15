@@ -1,15 +1,14 @@
-const router = require('express').Router();
-const Product = require('../models/Product');
+const Product = require('../../models/Product');
 const { randomUUID } = require('crypto');
 
 // index
-router.get('/', async (req, res) => {
+async function index(req, res) {
   const products = await Product.find();
   return res.json(products);
-});
+};
 
 // create
-router.post('/', async (req, res) => {
+async function create(req, res) {
   const { name, price } = req.body;
 
   const product = { id: randomUUID(), name, price };
@@ -23,18 +22,18 @@ router.post('/', async (req, res) => {
   }
 
   return res.json(product);
-});
+};
 
 // show
-router.get('/:id', async (req, res) => {
+async function show(req, res) {
   const { id } = req.params;
   const product = await Product.findById(id);
 
   return res.send(product);
-});
+};
 
 // update
-router.put('/:id', async (req, res) => {
+async function update(req, res) {
   const { id } = req.params;
   const { name, price } = req.body;
 
@@ -44,15 +43,21 @@ router.put('/:id', async (req, res) => {
   });
 
   return res.json(product);
-});
+};
 
-// delete
-router.delete('/:id', async (req, res) => {
+// destroy
+async function destroy(req, res) {
   const { id } = req.params;
 
   const product = await Product.findByIdAndDelete(id);
 
   return res.json(product);
-});
+};
 
-module.exports = router;
+module.exports = {
+  index,
+  create,
+  show,
+  update,
+  destroy
+};
