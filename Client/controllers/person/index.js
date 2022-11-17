@@ -26,7 +26,7 @@ async function create(req, res) {
 // show
 async function show(req, res) {
   const { id } = req.params;
-  const person = await Person.findById
+  const person = await Person.findById(id);
   return res.json(person);
 };
 

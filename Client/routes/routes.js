@@ -4,8 +4,8 @@ const router = Router();
 const PersonController = require('../controllers/person');
 const ProductController = require('../controllers/products');
 
-const Person = require('../models/Person');
-const Product = require('../models/Product');
+require('../models/Person');
+require('../models/Product');
 
 // Person routes
 router.get('/person', PersonController.index);
